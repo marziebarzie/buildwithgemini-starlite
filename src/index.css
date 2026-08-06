@@ -18,6 +18,17 @@
   }
 }
 
+/* HIDE SCROLLBARS FOR CLEAN NO-SCROLL PANELS */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
 /* Sky Skies Palette Accent with Deep Purple Cosmic Underglow */
 .btn-sky-light {
   background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
@@ -34,7 +45,7 @@
   background-color: rgba(14, 165, 233, 0.25);
   color: #38bdf8;
   border: 1px solid rgba(56, 189, 248, 0.5);
-  box-shadow: 0 0 12px rgba(147, 51, 234, 0.3); /* Deep Purple Underglow */
+  box-shadow: 0 0 12px rgba(147, 51, 234, 0.3);
 }
 
 /* Glassmorphism & Material Design Rounded Surfaces with Deep Purple Underglow */
@@ -43,7 +54,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(126, 34, 206, 0.25); /* Deep Purple Underglow */
+  box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(126, 34, 206, 0.25);
 }
 
 .glass-card {
@@ -51,14 +62,14 @@
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(147, 51, 234, 0.15); /* Deep Purple Underglow */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(147, 51, 234, 0.15);
 }
 
 .material-flyout {
   background: #0f172a;
   border-radius: 1.5rem;
   border: 1px solid rgba(168, 85, 247, 0.4);
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(147, 51, 234, 0.45); /* Deep Cosmic Purple Underglow */
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(147, 51, 234, 0.45);
 }
 
 /* GLITCH-FREE PIN SELECTION & HOVER ANIMATION WITH DEEP PURPLE UNDERGLOW */
@@ -81,7 +92,7 @@
 
 .pin-wrapper:hover {
   transform: scale(1.18);
-  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.95)); /* Deep Purple Underglow */
+  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.95));
   z-index: 9999 !important;
 }
 
@@ -117,19 +128,6 @@
   font-family: var(--font-sans) !important;
 }
 
-.leaflet-popup-content-wrapper {
-  background: #0f172a !important;
-  color: #f8fafc !important;
-  border-radius: 1rem !important;
-  border: 1px solid rgba(168, 85, 247, 0.4) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(147, 51, 234, 0.3) !important; /* Deep Purple Underglow */
-  padding: 4px !important;
-}
-
-.leaflet-popup-tip {
-  background: #0f172a !important;
-}
-
 /* BORTLE SCALE BADGES: B1=Violet, B2=Green, B3=Yellow, B4=Orange, B5=Red (ALL SHARP SQUARES) */
 .bortle-1 { 
   background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%); 
@@ -137,7 +135,7 @@
   border: 1px solid #c4b5fd; 
   font-weight: 800;
   border-radius: 0.25rem !important;
-  box-shadow: 0 0 12px rgba(147, 51, 234, 0.5); /* Deep Purple Underglow */
+  box-shadow: 0 0 12px rgba(147, 51, 234, 0.5);
 }
 
 .bortle-2 { 
