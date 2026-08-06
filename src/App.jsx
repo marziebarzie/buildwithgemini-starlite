@@ -17,6 +17,14 @@ export default function App() {
 
   // SAVE SPOT HANDLER WITH MANDATORY DAY/YEAR/TIMESTAMP
   const handleSaveSpot = (loc) => {
+    if (!loc) return;
+    const isAlreadySaved = savedSpots.some(s => s.id === loc.id);
+
+    if (isAlreadySaved) {
+      setSavedSpots(prev => prev.filter(s => s.id !== loc.id));
+      return;
+    }
+
     const timestamp = new Date().toLocaleString('en-US', {
       weekday: 'short',
       year: 'numeric',
@@ -35,12 +43,15 @@ export default function App() {
     };
 
     setSavedSpots(prev => [newSaved, ...prev]);
-    setActiveTab('saved');
   };
 
   const handleDeleteSpot = (savedId) => {
     setSavedSpots(prev => prev.filter(s => s.savedId !== savedId));
   };
+
+  const isSelectedLocationSaved = selectedLocation
+    ? savedSpots.some(s => s.id === selectedLocation.id)
+    : false;
 
   return (
     <div className="h-screen w-screen bg-[#030712] text-slate-100 flex flex-col font-sans overflow-hidden">
@@ -90,6 +101,7 @@ export default function App() {
             selectedLocation={selectedLocation}
             onSelectLocation={setSelectedLocation}
             onSaveSpot={handleSaveSpot}
+            isSaved={isSelectedLocationSaved}
           />
         </section>
 

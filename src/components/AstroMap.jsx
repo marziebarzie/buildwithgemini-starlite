@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, ZoomControl, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, ZoomControl, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { MapPin, Navigation, Eye, Wifi, ShieldAlert, Thermometer, Wind, Mountain, BookmarkPlus, Camera, Sparkles, ChevronRight, Search, Filter, X } from 'lucide-react';
+import { MapPin, Navigation, Eye, Wifi, ShieldAlert, Thermometer, Wind, Mountain, BookmarkPlus, Check, Camera, Sparkles, ChevronRight, Search, Filter, X } from 'lucide-react';
 
-// Glitch-Free Leaflet Pin Marker — Static outer container prevents touchpad flicker
+// Glitch-Free Leaflet Pin Marker
 const createCustomIcon = (bortle, isSelected) => {
   const colorMap = {
     1: '#8b5cf6', // Violet (Bortle 1)
@@ -40,14 +40,14 @@ function ChangeView({ center, zoom }) {
   return null;
 }
 
-export default function AstroMap({ locations, selectedLocation, onSelectLocation, onSaveSpot }) {
+export default function AstroMap({ locations, selectedLocation, onSelectLocation, onSaveSpot, isSaved }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [regionFilter, setRegionFilter] = useState('All'); // 'All', 'North America', 'Europe', 'Bortle 1', 'Aurora'
 
   // GEOGRAPHIC BOUNDS CONSTRAINED TO NORTH AMERICA & EUROPE
   const mapBounds = [
-    [10.0, -170.0], // South-West (Hawaii, US, Caribbean)
-    [78.0, 45.0]    // North-East (Svalbard, Scandinavia, Europe)
+    [10.0, -170.0],
+    [78.0, 45.0]
   ];
 
   // FILTERED LOCATIONS
@@ -62,7 +62,7 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
       if (regionFilter === 'North America') return loc.continent === 'North America';
       if (regionFilter === 'Europe') return loc.continent === 'Europe';
       if (regionFilter === 'Bortle 1') return loc.bortle === 1;
-      if (regionFilter === 'Aurora') return loc.coordinates[0] >= 60; // 60°N or higher latitude
+      if (regionFilter === 'Aurora') return loc.coordinates[0] >= 60;
       return true;
     });
   }, [locations, searchQuery, regionFilter]);
@@ -125,7 +125,7 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
         </div>
       </div>
 
-      {/* BASEMAP CONTAINER — MIN ZOOM & MAX BOUNDS CONSTRAINED TO US & EUROPE */}
+      {/* BASEMAP CONTAINER — CLEAN PIN CLICK SELECTION WITHOUT OVERLAPPING POPUPS */}
       <MapContainer
         center={currentCenter}
         zoom={3}
@@ -157,33 +157,14 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
               eventHandlers={{
                 click: () => onSelectLocation(loc)
               }}
-            >
-              <Popup className="material-popup">
-                <div className="p-2.5 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2.5 py-0.5 text-xs font-bold rounded-sm border bortle-${loc.bortle}`}>
-                      Bortle {loc.bortle}
-                    </span>
-                    <span className="text-xs text-sky-300 font-mono">SQM {loc.sqm}</span>
-                  </div>
-                  <h4 className="font-bold text-slate-100 text-sm">{loc.name}</h4>
-                  <p className="text-xs text-slate-300">{loc.region}</p>
-                  <button
-                    onClick={() => onSelectLocation(loc)}
-                    className="mt-2 w-full text-xs font-semibold btn-sky-light py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 transition shadow"
-                  >
-                    Inspect Spot <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </Popup>
-            </Marker>
+            />
           );
         })}
       </MapContainer>
 
-      {/* MAP OVERLAY LAYER 3: MATERIAL DESIGN FLYOUT CARD */}
+      {/* MAP OVERLAY LAYER 3: MATERIAL DESIGN SPOT FLYOUT CARD */}
       {selectedLocation && (
-        <div className="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-md max-h-[55vh] overflow-y-auto z-20 material-flyout p-5 text-slate-100 transition-all duration-300 animate-in slide-in-from-bottom-5">
+        <div className="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-md max-h-[50vh] overflow-y-auto z-30 material-flyout p-5 text-slate-100 transition-all duration-300 animate-in slide-in-from-bottom-5">
           <div className="flex justify-between items-start mb-3">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
@@ -202,7 +183,7 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
             <button
               onClick={() => onSelectLocation(null)}
               className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 transition shrink-0"
-              title="Close flyout"
+              title="Close spot panel"
             >
               <X className="w-4 h-4" />
             </button>
@@ -256,9 +237,21 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
           <div className="flex gap-2">
             <button
               onClick={() => onSaveSpot(selectedLocation)}
-              className="flex-1 h-11 btn-sky-light font-bold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              className={`flex-1 h-11 font-bold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] ${
+                isSaved
+                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-400/50'
+                  : 'btn-sky-light text-white'
+              }`}
             >
-              <BookmarkPlus className="w-4 h-4" /> Save Favorite & Gear Profile
+              {isSaved ? (
+                <>
+                  <Check className="w-4 h-4 text-white" /> Saved in Favorites & Gear
+                </>
+              ) : (
+                <>
+                  <BookmarkPlus className="w-4 h-4" /> Save Favorite & Gear Profile
+                </>
+              )}
             </button>
           </div>
         </div>
