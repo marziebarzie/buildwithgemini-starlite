@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #030712;
+    color: #f8fafc;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Sky Skies Palette Accent with Deep Purple Cosmic Underglow */
+.btn-sky-light {
+  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 20px 0 rgba(147, 51, 234, 0.45); /* Deep Purple Underglow */
+}
+
+.btn-sky-light:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+  box-shadow: 0 8px 25px 0 rgba(168, 85, 247, 0.6);
+}
+
+.badge-sky-light {
+  background-color: rgba(14, 165, 233, 0.25);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 12px rgba(147, 51, 234, 0.3); /* Deep Purple Underglow */
+}
+
+/* Glassmorphism & Material Design Rounded Surfaces with Deep Purple Underglow */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(126, 34, 206, 0.25); /* Deep Purple Underglow */
+}
+
+.glass-card {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(147, 51, 234, 0.15); /* Deep Purple Underglow */
+}
+
+.material-flyout {
+  background: #0f172a;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(147, 51, 234, 0.45); /* Deep Cosmic Purple Underglow */
+}
+
+/* GLITCH-FREE PIN SELECTION & HOVER ANIMATION WITH DEEP PURPLE UNDERGLOW */
+@keyframes pin-purple-glow {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.7)); transform: scale(1.05); }
+  50% { filter: drop-shadow(0 0 22px rgba(147, 51, 234, 1)); transform: scale(1.15); }
+}
+
+.custom-leaflet-marker {
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+/* Stable inner pin container prevents hover flicker */
+.pin-wrapper {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+  transform-origin: bottom center;
+}
+
+.pin-wrapper:hover {
+  transform: scale(1.18);
+  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.95)); /* Deep Purple Underglow */
+  z-index: 9999 !important;
+}
+
+.pin-selected-glow {
+  animation: pin-purple-glow 1.5s ease-in-out infinite;
+  z-index: 10000 !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.8);
+}
+
+/* Leaflet map customization */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #020617 !important;
+  font-family: var(--font-sans) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border-radius: 1rem !important;
+  border: 1px solid rgba(168, 85, 247, 0.4) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(147, 51, 234, 0.3) !important; /* Deep Purple Underglow */
+  padding: 4px !important;
+}
+
+.leaflet-popup-tip {
+  background: #0f172a !important;
+}
+
+/* BORTLE SCALE BADGES: B1=Violet, B2=Green, B3=Yellow, B4=Orange, B5=Red (ALL SHARP SQUARES) */
+.bortle-1 { 
+  background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%); 
+  color: #ffffff; 
+  border: 1px solid #c4b5fd; 
+  font-weight: 800;
+  border-radius: 0.25rem !important;
+  box-shadow: 0 0 12px rgba(147, 51, 234, 0.5); /* Deep Purple Underglow */
+}
+
+.bortle-2 { 
+  background: linear-gradient(135deg, #047857 0%, #10b981 100%); 
+  color: #ffffff; 
+  border: 1px solid #6ee7b7; 
+  font-weight: 800;
+  border-radius: 0.25rem !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.bortle-3 { 
+  background: linear-gradient(135deg, #ca8a04 0%, #f59e0b 100%); 
+  color: #ffffff; 
+  border: 1px solid #fde047; 
+  font-weight: 800;
+  border-radius: 0.25rem !important;
+}
+
+.bortle-4 { 
+  background: linear-gradient(135deg, #c2410c 0%, #f97316 100%); 
+  color: #ffffff; 
+  border: 1px solid #fdba74; 
+  font-weight: 800;
+  border-radius: 0.25rem !important;
+}
+
+.bortle-5 { 
+  background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%); 
+  color: #ffffff; 
+  border: 1px solid #fca5a5; 
+  font-weight: 800;
+  border-radius: 0.25rem !important;
+}
