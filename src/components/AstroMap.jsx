@@ -71,7 +71,7 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
 
   return (
     <div className="relative w-full h-full rounded-2xl overflow-hidden border border-slate-800/80 shadow-2xl flex flex-col">
-      {/* MAP OVERLAY LAYER 1: SEARCH BAR & REGION CHIPS */}
+      {/* MAP OVERLAY LAYER 1: SEARCH BAR & REGION CHIPS (TOP FULL WIDTH) */}
       <div className="absolute top-3 left-3 right-3 z-20 flex flex-col sm:flex-row gap-2 pointer-events-none">
         {/* SEARCH INPUT */}
         <div className="relative flex-1 pointer-events-auto">
@@ -111,8 +111,8 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
         </div>
       </div>
 
-      {/* MAP OVERLAY LAYER 2: BORTLE SCALE LEGEND */}
-      <div className="absolute top-16 left-3 z-10 glass-panel p-2.5 rounded-xl border border-sky-500/30 max-w-xs shadow-xl hidden xl:block pointer-events-auto">
+      {/* MAP OVERLAY LAYER 2: BORTLE SCALE LEGEND (POSITIONED IN TOP-RIGHT QUADRANT TO PREVENT SPOT UI OVERLAP) */}
+      <div className="absolute top-16 right-3 z-10 glass-panel p-2.5 rounded-xl border border-sky-500/30 max-w-xs shadow-xl hidden lg:block pointer-events-auto">
         <h3 className="text-[10px] font-bold text-sky-400 uppercase tracking-wider mb-1.5 flex items-center gap-1">
           <Sparkles className="w-3 h-3 text-sky-400" /> Bortle Dark Sky Scale
         </h3>
@@ -125,7 +125,7 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
         </div>
       </div>
 
-      {/* BASEMAP CONTAINER — CLEAN PIN CLICK SELECTION WITHOUT OVERLAPPING POPUPS */}
+      {/* BASEMAP CONTAINER */}
       <MapContainer
         center={currentCenter}
         zoom={3}
@@ -144,7 +144,7 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
           maxZoom={19}
         />
 
-        {/* ZOOM CONTROL ISOLATED IN BOTTOM RIGHT */}
+        {/* ZOOM CONTROL IN BOTTOM RIGHT */}
         <ZoomControl position="bottomright" />
 
         {filteredLocations.map((loc) => {
@@ -162,7 +162,7 @@ export default function AstroMap({ locations, selectedLocation, onSelectLocation
         })}
       </MapContainer>
 
-      {/* MAP OVERLAY LAYER 3: MATERIAL DESIGN SPOT FLYOUT CARD */}
+      {/* MAP OVERLAY LAYER 3: MATERIAL DESIGN SPOT FLYOUT CARD (POSITIONED IN BOTTOM-LEFT QUADRANT) */}
       {selectedLocation && (
         <div className="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-md max-h-[50vh] overflow-y-auto z-30 material-flyout p-5 text-slate-100 transition-all duration-300 animate-in slide-in-from-bottom-5">
           <div className="flex justify-between items-start mb-3">
